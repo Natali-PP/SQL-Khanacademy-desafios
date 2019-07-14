@@ -72,11 +72,41 @@ INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,co
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/10/09 12:57','Couch',3600,'Amex','Vanessa','Sandy Springs','GA','United states','2/7/07 20:16','1/10/09 14:09',33.92417,-84.37861);
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/10/09 14:43','Chair',1200,'Diners','Anupam','Kinsaley','Dublin','Ireland','1/9/09 11:38','1/10/09 14:37',53.4247222,-6.1758333);
 
+/* Datos sobre precios*/
 SELECT 
     MAX(price) AS max_price,
     MIN (price) AS min_price,
     AVG(price) AS avarage_price
 FROM sales; 
+
+/* cantidad de ventas por pais*/
+SELECT COUNT(*) AS cantidad_ventas , country
+    FROM sales
+    GROUP BY country
+    ORDER BY cantidad_ventas DESC;
+
+/* cantidad de ventas con Mastercard por pais*/
+
+SELECT COUNT(*) AS cant_mastercard, country
+    FROM sales
+    GROUP BY country
+    HAVING payment_type = "Mastercard"
+    ORDER BY cant_mastercard DESC;
+
+/* sillas pagadas con mastercard en cada pais*/
+SELECT COUNT (*) AS sillas_Master, country 
+    FROM sales
+    WHERE payment_type= "Mastercard" AND product = "Chair"
+    GROUP BY country ;
+
+SELECT COUNT(*), product,
+    CASE 
+        WHEN price > 1800 THEN "Precio mas alto que el promedio"
+        WHEN price < 1800 THEN "Precio más bajo que el promedio"
+        ELSE "Precio promedio"
+    END AS "prom_text"
+FROM sales
+GROUP BY prom_text;
 
 /* cantidad de ventas por pais*/
 SELECT COUNT(*) AS cantidad_ventas , country
