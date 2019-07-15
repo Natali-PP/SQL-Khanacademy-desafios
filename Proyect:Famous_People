@@ -1,0 +1,53 @@
+/* Create table about the people and what they do here */
+
+/*VAMOS CON SONG OF ICE AND FIRE XQ HAY MUCHA INFO*/
+
+CREATE TABLE personajes_basico ( id INTEGER PRIMARY KEY AUTOINCREMENT,
+nombre TEXT,
+apellido TEXT);
+
+INSERT INTO personajes_basico (nombre, apellido) VALUES ("Cercei", "Lanister");
+INSERT INTO personajes_basico (nombre, apellido) VALUES ("Ned", "Stark");
+INSERT INTO personajes_basico (nombre, apellido) VALUES ("Tyrion", "Lannister");
+INSERT INTO personajes_basico (nombre, apellido) VALUES ("Catelyn", "Stark");
+INSERT INTO personajes_basico (nombre, apellido) VALUES ("Jaime", "Lannister");
+INSERT INTO personajes_basico (nombre, apellido) VALUES ("Daenerys", "Targaryen");
+INSERT INTO personajes_basico (nombre, apellido) VALUES ("Jon", "Snow");
+
+CREATE TABLE caracteristicas (id INTEGER PRIMARY KEY AUTOINCREMENT,
+personaje_id INTEGER,
+casa TEXT,
+titulo TEXT,
+lugar TEXT);
+
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (1, "Lanister", "Red Keep", "King's Landing");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (2, "Stark", "Señor de Winterfell", "Winterfell");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (2, "Stark", "Mano del Rey", "King's Landing");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (3, "Lanister", "Mano del Rey", "King's Landing");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (4, "Stark", "Señora de Winterfell", "Winterfell");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (4, "brotherhood without banners", "Lady Stoneheart", "Riverlands");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (5, "Lanister", "Lord Comandante de la Guardia Real", "Kingsward");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (6, "Targaryen","Khaleesi", "Essos");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (7, "Stark", NULL, "Winterfell");
+INSERT INTO caracteristicas (personaje_id, casa, titulo, lugar) VALUES (7, NULL, "Comandante de la Guardia de la Noche", "El Muro");
+
+CREATE TABLE relac_romantica ( id INTEGER PRIMARY KEY AUTOINCREMENT,
+relac_romantica1_id INTEGER,
+relac_romantica2_id INTEGER);
+
+INSERT INTO relac_romantica (relac_romantica1_id, relac_romantica2_id) VALUES ( 1,5);
+INSERT INTO relac_romantica (relac_romantica1_id, relac_romantica2_id) VALUES ( 2,4);
+
+
+
+SELECT personajes_basico.nombre, personajes_basico.apellido, caracteristicas.titulo, caracteristicas.lugar
+FROM personajes_basico
+JOIN caracteristicas
+ON personajes_basico.id=caracteristicas.personaje_id;
+
+SELECT a.nombre, b.nombre
+FROM relac_romantica
+    JOIN personajes_basico a
+    ON relac_romantica.relac_romantica1_id = a.id
+    JOIN personajes_basico b
+    ON relac_romantica.relac_romantica2_id = b.id;
